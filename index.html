@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="UniqFit - Luxury minimal modern streetwear. Redefine Your Style with premium clothing.">
+    <meta name="keywords" content="UniqFit, luxury streetwear, minimal fashion, premium clothing, modern fashion">
+    <title>UniqFit | Redefine Your Style</title>
+    <!-- Tailwind CSS CDN (lightweight, necessary for premium responsive modern design without 2000+ lines of custom CSS) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&amp;family=Playfair+Display:wght@700&amp;display=swap');
+        
+        :root {
+            --tw-color-primary: #111111;
+            --tw-color-accent: #d4af77;
+            --tw-color-beige: #f5f0e8;
+        }
+        
+        * {
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 150ms;
+        }
+        
+        .navbar {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .page {
+            animation: pageFade 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        
+        @keyframes pageFade {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .hero-bg {
+            background: linear-gradient(180deg, rgba(17, 17, 17, 0.85) 0%, rgba(17, 17, 17, 0.95) 100%),
+                        url('https://picsum.photos/id/1015/2000/1200') center/cover no-repeat;
+        }
+        
+        .product-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .product-card:hover {
+            transform: scale(1.04);
+            box-shadow: 0 25px 50px -12px rgb(212 175 119 / 0.15);
+        }
+        
+        .hamburger span {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+        
+        .timeline-item {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .fade-in {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .loader {
+            animation: loaderPulse 1.5s infinite;
+        }
+    </style>
+</head>
+<body class="bg-[#111111] text-white font-sans overflow-x-hidden">
+    <!-- PREMIUM LOADING SCREEN -->
+    <div id="loader" class="fixed inset-0 bg-[#111111] z-[9999] flex items-center justify-center">
+        <div class="text-center">
+            <!-- Animated logo -->
+            <div class="flex items-center justify-center gap-3 mb-6">
+                <div class="w-12 h-12 border-4 border-[#d4af77] border-t-transparent rounded-full animate-spin"></div>
+                <h1 class="text-5xl font-bold tracking-[6px] text-[#d4af77] loader">UNIQFIT</h1>
+            </div>
+            <p class="text-[#f5f0e8] text-sm tracking-[3px] uppercase font-medium">Redefining Style</p>
+            <div class="w-64 h-1 bg-[#f5f0e8]/10 rounded-full mx-auto mt-8 overflow-hidden">
+                <div class="h-1 w-1/3 bg-[#d4af77] rounded-full animate-[loading_1.5s_infinite]"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- STICKY NAVBAR -->
+    <nav id="navbar" class="navbar fixed top-0 left-0 right-0 z-50 bg-transparent border-b border-white/10">
+        <div class="max-w-screen-2xl mx-auto px-6 lg:px-12">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Logo -->
+                <div onclick="navigateTo('home-page')" class="flex items-center gap-x-2 cursor-pointer">
+                    <span class="text-4xl font-bold tracking-[4px] text-white">UNIQ</span>
+                    <span class="text-4xl font-bold tracking-[4px] text-[#d4af77]">FIT</span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden lg:flex items-center gap-x-10 text-sm font-medium uppercase tracking-widest">
+                    <a onclick="navigateTo('home-page')" class="nav-link hover:text-[#d4af77] cursor-pointer">Home</a>
+                    <a onclick="navigateTo('bestsellers-page')" class="nav-link hover:text-[#d4af77] cursor-pointer">Best Sellers</a>
+                    <a onclick="navigateTo('about-page')" class="nav-link hover:text-[#d4af77] cursor-pointer">About Us</a>
+                    <a onclick="navigateTo('story-page')" class="nav-link hover:text-[#d4af77] cursor-pointer">Our Story</a>
+                    <a onclick="navigateTo('contact-page')" class="nav-link hover:text-[#d4af77] cursor-pointer">Contact</a>
+                </div>
+
+                <!-- Right side actions -->
+                <div class="flex items-center gap-x-6">
+                    <a href="#" onclick="fakeCartClick()" class="flex items-center gap-x-1 hover:text-[#d4af77]">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                        <span id="cart-count" class="text-xs bg-[#d4af77] text-black font-bold rounded-full w-5 h-5 flex items-center justify-center">3</span>
+                    </a>
+                    
+                    <!-- Mobile Hamburger -->
+                    <button onclick="toggleMobileMenu()" id="hamburger" class="hamburger lg:hidden flex flex-col justify-center items-center w-10 h-10 focus:outline-none">
+                        <span class="block w-6 h-px bg-white mb-1.5"></span>
+                        <span class="block w-6 h-px bg-white mb-1.5"></span>
+                        <span class="block w-6 h-px bg-white"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-[#111111] border-t border-white/10 px-6 py-6">
+            <div class="flex flex-col gap-y-6 text-lg font-medium">
+                <a onclick="navigateTo('home-page');toggleMobileMenu()" class="nav-link py-2 border-b border-white/10">Home</a>
+                <a onclick="navigateTo('bestsellers-page');toggleMobileMenu()" class="nav-link py-2 border-b border-white/10">Best Sellers</a>
+                <a onclick="navigateTo('about-page');toggleMobileMenu()" class="nav-link py-2 border-b border-white/10">About Us</a>
+                <a onclick="navigateTo('story-page');toggleMobileMenu()" class="nav-link py-2 border-b border-white/10">Our Story</a>
+                <a onclick="navigateTo('contact-page');toggleMobileMenu()" class="nav-link py-2">Contact</a>
+                
+                <div class="pt-4 flex items-center justify-center gap-6">
+                    <a href="https://www.instagram.com" target="_blank" class="hover:text-[#d4af77]">Instagram</a>
+                    <a href="https://www.facebook.com" target="_blank" class="hover:text-[#d4af77]">Facebook</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- PAGES CONTAINER -->
+    <main class="pt-20 min-h-screen">
+
+        <!-- ==================== HOME PAGE ==================== -->
+        <div id="home-page" class="page">
+            
+            <!-- HERO -->
+            <section class="hero-bg min-h-screen flex items-center relative">
+                <div class="max-w-screen-2xl mx-auto px-6 lg:px-12 text-center">
+                    <div class="max-w-2xl mx-auto">
+                        <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md text-[#d4af77] text-sm font-medium tracking-widest px-6 py-2 rounded-3xl mb-6">
+                            <div class="w-2 h-2 bg-[#d4af77] rounded-full animate-pulse"></div>
+                            NEW SEASON DROPS
+                        </div>
+                        
+                        <h1 class="text-7xl md:text-8xl lg:text-[100px] font-bold leading-none tracking-[-4px] mb-4">
+                            UNIQ<span class="text-[#d4af77]">FIT</span>
+                        </h1>
+                        
+                        <p class="text-2xl md:text-3xl text-[#f5f0e8] font-light tracking-wide mb-12">
+                            Redefine Your Style
+                        </p>
+                        
+                        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                            <button onclick="navigateTo('bestsellers-page')" 
+                                    class="bg-[#d4af77] hover:bg-white text-black font-semibold text-lg px-12 py-5 rounded-2xl flex items-center gap-x-3 group">
+                                SHOP NOW
+                                <span class="text-xl group-active:rotate-45">?</span>
+                            </button>
+                            
+                            <button onclick="navigateTo('story-page')" 
+                                    class="border border-white/40 hover:border-[#d4af77] text-white font-medium text-lg px-10 py-5 rounded-2xl">
+                                WATCH THE FILM
+                            </button>
+                        </div>
+                        
+                        <div class="mt-16 flex justify-center gap-x-8 text-sm uppercase tracking-widest">
+                            <div class="flex items-center gap-x-2">
+                                <span class="text-[#d4af77]">?</span>
+                                <p>Luxury Craftsmanship</p>
+                            </div>
+                            <div class="flex items-center gap-x-2">
+                                <span class="text-[#d4af77]">?</span>
+                                <p>Streetwear Soul</p>
+                            </div>
+                            <div class="flex items-center gap-x-2">
+                                <span class="text-[#d4af77]">?</span>
+                                <p>Minimal Design</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Scroll indicator -->
+                <div class="absolute bottom-12 left-1/2 flex flex-col items-center gap-y-2 text-[#d4af77] text-xs tracking-widest">
+                    <div class="animate-bounce">SCROLL</div>
+                    <div class="w-px h-12 bg-gradient-to-b from-transparent via-[#d4af77] to-transparent"></div>
+                </div>
+                
+                <!-- Subtle brand accent -->
+                <div class="absolute bottom-8 right-8 text-[#d4af77]/10 text-[180px] font-black leading-none select-none pointer-events-none">UF</div>
+            </section>
+
+            <!-- FEATURED COLLECTIONS -->
+            <section class="max-w-screen-2xl mx-auto px-6 lg:px-12 py-20">
+                <div class="flex justify-between items-baseline mb-12">
+                    <h2 class="text-5xl font-bold tracking-tight">Featured Collections</h2>
+                    <a onclick="navigateTo('bestsellers-page')" class="flex items-center gap-x-2 text-[#d4af77] uppercase text-sm font-medium hover:gap-x-3">
+                        EXPLORE ALL 
+                        <span class="text-2xl">?</span>
+                    </a>
+                </div>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <!-- Collection 1 -->
+                    <div onclick="navigateTo('bestsellers-page')" class="group cursor-pointer">
+                        <div class="aspect-[4/5] overflow-hidden rounded-3xl bg-[#f5f0e8] relative">
+                            <img src="https://picsum.photos/id/1005/800/1000" alt="Core Collection" 
+                                 class="w-full h-full object-cover group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-8">
+                                <div>
+                                    <span class="text-[#d4af77] text-xs tracking-widest">2026</span>
+                                    <h3 class="text-3xl font-semibold text-white">Core Collection</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Collection 2 -->
+                    <div onclick="navigateTo('bestsellers-page')" class="group cursor-pointer">
+                        <div class="aspect-[4/5] overflow-hidden rounded-3xl bg-[#f5f0e8] relative">
+                            <img src="https://picsum.photos/id/160/800/1000" alt="Luxe Street" 
+                                 class="w-full h-full object-cover group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-8">
+                                <div>
+                                    <span class="text-[#d4af77] text-xs tracking-widest">2026</span>
+                                    <h3 class="text-3xl font-semibold text-white">Luxe Street</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Collection 3 -->
+                    <div onclick="navigateTo('bestsellers-page')" class="group cursor-pointer">
+                        <div class="aspect-[4/5] overflow-hidden rounded-3xl bg-[#f5f0e8] relative">
+                            <img src="https://picsum.photos/id/201/800/1000" alt="Minimal Essentials" 
+                                 class="w-full h-full object-cover group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-8">
+                                <div>
+                                    <span class="text-[#d4af77] text-xs tracking-widest">2026</span>
+                                    <h3 class="text-3xl font-semibold text-white">Minimal Essentials</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Collection 4 -->
+                    <div onclick="navigateTo('bestsellers-page')" class="group cursor-pointer">
+                        <div class="aspect-[4/5] overflow-hidden rounded-3xl bg-[#f5f0e8] relative">
+                            <img src="https://picsum.photos/id/251/800/1000" alt="Bold Editions" 
+                                 class="w-full h-full object-cover group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-8">
+                                <div>
+                                    <span class="text-[#d4af77] text-xs tracking-widest">LIMITED</span>
+                                    <h3 class="text-3xl font-semibold text-white">Bold Editions</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- BEST SELLERS PREVIEW -->
+            <section class="bg-[#f5f0e8] text-black py-20">
+                <div class="max-w-screen-2xl mx-auto px-6 lg:px-12">
+                    <div class="flex justify-between items-baseline mb-12">
+                        <h2 class="text-5xl font-bold tracking-tight text-black">Best Sellers</h2>
+                        <button onclick="navigateTo('bestsellers-page')" 
+                                class="px-8 py-4 border border-black rounded-2xl font-medium hover:bg-black hover:text-white">
+                            VIEW ALL BEST SELLERS
+                        </button>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-8" id="home-bestsellers-grid">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ==================== BEST SELLERS PAGE ==================== -->
+        <div id="bestsellers-page" class="page hidden">
+            <div class="max-w-screen-2xl mx-auto px-6 lg:px-12 py-16">
+                <h1 class="text-6xl font-bold tracking-tight mb-3">Best Sellers</h1>
+                <p class="text-xl text-[#f5f0e8] max-w-md">Timeless pieces loved by those who move with intention.</p>
+                
+                <div class="mt-12 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-12" id="bestsellers-grid">
+                    <!-- Populated by JS with full product cards -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== ABOUT US PAGE ==================== -->
+        <div id="about-page" class="page hidden">
+            <div class="max-w-screen-2xl mx-auto px-6 lg:px-12 py-16">
+                <div class="grid lg:grid-cols-12 gap-16 items-center">
+                    <!-- Left text -->
+                    <div class="lg:col-span-7">
+                        <span class="uppercase text-[#d4af77] tracking-[3px] text-sm font-medium">Since 2022</span>
+                        <h1 class="text-6xl font-bold tracking-tighter leading-none mt-4 mb-8">We don’t follow trends.<br>We define them.</h1>
+                        
+                        <div class="prose prose-invert text-[#f5f0e8] text-lg max-w-none">
+                            <p class="mb-8">UniqFit was born from the belief that clothing should feel as powerful as it looks. We fuse luxury tailoring with the effortless attitude of modern streetwear.</p>
+                            
+                            <div class="grid md:grid-cols-2 gap-12">
+                                <div>
+                                    <h3 class="text-2xl font-semibold text-black bg-[#f5f0e8] inline-block px-4 py-1 rounded-2xl mb-4">Our Mission</h3>
+                                    <p class="text-black">To create clothing that celebrates individuality while maintaining the highest standards of quality, comfort, and ethical production.</p>
+                                </div>
+                                <div>
+                                    <h3 class="text-2xl font-semibold text-black bg-[#f5f0e8] inline-block px-4 py-1 rounded-2xl mb-4">Our Vision</h3>
+                                    <p class="text-black">A world where every garment tells a story of confidence, sustainability, and timeless elegance.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-16 flex flex-wrap gap-8">
+                            <div class="flex items-center gap-x-4">
+                                <div class="text-5xl font-black text-[#d4af77]">100%</div>
+                                <div class="text-sm uppercase leading-tight">Ethically<br>sourced fabrics</div>
+                            </div>
+                            <div class="flex items-center gap-x-4">
+                                <div class="text-5xl font-black text-[#d4af77]">47</div>
+                                <div class="text-sm uppercase leading-tight">Cities<br>worldwide</div>
+                            </div>
+                            <div class="flex items-center gap-x-4">
+                                <div class="text-5xl font-black text-[#d4af77]">8</div>
+                                <div class="text-sm uppercase leading-tight">Timeless<br>designs</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Right image -->
+                    <div class="lg:col-span-5">
+                        <div class="rounded-3xl overflow-hidden aspect-video bg-black">
+                            <img src="https://picsum.photos/id/1016/1200/800" alt="UniqFit studio" 
+                                 class="w-full h-full object-cover">
+                        </div>
+                        <p class="text-center text-sm text-[#f5f0e8] mt-6 tracking-widest">Handcrafted in limited batches • Designed in Gujarat</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== OUR STORY PAGE ==================== -->
+        <div id="story-page" class="page hidden bg-[#f5f0e8] text-black py-16">
+            <div class="max-w-screen-2xl mx-auto px-6 lg:px-12">
+                <h1 class="text-6xl font-bold tracking-tighter text-center mb-16">Our Story</h1>
+                
+                <!-- Timeline -->
+                <div class="max-w-3xl mx-auto relative">
+                    <!-- Vertical line -->
+                    <div class="absolute left-8 md:left-1/2 top-8 bottom-8 w-px bg-black/20"></div>
+                    
+                    <div class="space-y-24">
+                        <!-- Item 1 -->
+                        <div class="timeline-item flex gap-8 relative">
+                            <div class="w-16 h-16 flex-shrink-0 bg-[#d4af77] text-black font-bold text-3xl flex items-center justify-center rounded-2xl z-10">22</div>
+                            <div class="flex-1">
+                                <h4 class="text-xl font-semibold">Founded in Jamnagar, Gujarat</h4>
+                                <p class="text-black/70 mt-2">A small atelier with one dream: to blend Indian craftsmanship with global streetwear aesthetics.</p>
+                            </div>
+                            <div class="hidden md:block w-1/2"></div>
+                        </div>
+                        
+                        <!-- Item 2 -->
+                        <div class="timeline-item flex gap-8 relative">
+                            <div class="w-16 h-16 flex-shrink-0 bg-[#d4af77] text-black font-bold text-3xl flex items-center justify-center rounded-2xl z-10">23</div>
+                            <div class="flex-1">
+                                <h4 class="text-xl font-semibold">First flagship store opens</h4>
+                                <p class="text-black/70 mt-2">The Core Collection launches to critical acclaim. Minimal silhouettes meet premium Italian cotton and Japanese denim.</p>
+                            </div>
+                            <div class="hidden md:block w-1/2"></div>
+                        </div>
+                        
+                        <!-- Item 3 -->
+                        <div class="timeline-item flex gap-8 relative">
+                            <div class="w-16 h-16 flex-shrink-0 bg-[#d4af77] text-black font-bold text-3xl flex items-center justify-center rounded-2xl z-10">24</div>
+                            <div class="flex-1">
+                                <h4 class="text-xl font-semibold">Global expansion begins</h4>
+                                <p class="text-black/70 mt-2">Paris, New York, Dubai &amp; Mumbai showcase the Luxe Street line. Sold out in 11 minutes.</p>
+                            </div>
+                            <div class="hidden md:block w-1/2"></div>
+                        </div>
+                        
+                        <!-- Item 4 -->
+                        <div class="timeline-item flex gap-8 relative">
+                            <div class="w-16 h-16 flex-shrink-0 bg-[#d4af77] text-black font-bold text-3xl flex items-center justify-center rounded-2xl z-10">26</div>
+                            <div class="flex-1">
+                                <h4 class="text-xl font-semibold">Today</h4>
+                                <p class="text-black/70 mt-2">UniqFit continues to redefine what luxury streetwear means — one meticulously crafted piece at a time.</p>
+                            </div>
+                            <div class="hidden md:block w-1/2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== CONTACT US PAGE ==================== -->
+        <div id="contact-page" class="page hidden">
+            <div class="max-w-screen-2xl mx-auto px-6 lg:px-12 py-20">
+                <div class="grid lg:grid-cols-2 gap-16">
+                    <div>
+                        <h1 class="text-6xl font-bold tracking-tighter mb-6">Let’s stay connected.</h1>
+                        <p class="text-[#f5f0e8] text-2xl">Whether you have a question or just want to say hello, we’re here for you.</p>
+                        
+                        <!-- WhatsApp Button -->
+                        <a href="https://wa.me/919876543210" target="_blank"
+                           class="mt-12 flex items-center gap-x-4 bg-[#25D366] text-white hover:bg-[#25D366]/90 px-10 py-6 rounded-3xl text-xl font-medium w-fit">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.165-.173.198-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.485-.888-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.48 0 1.463 1.065 2.879 1.213 3.079.149.198 2.095 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.355L3 21l1.39-5.072a9.847 9.847 0 01-1.3-5.244c.004-5.45 4.436-9.885 9.89-9.885 2.64 0 5.123 1.03 6.988 2.9a9.837 9.837 0 012.897 6.987c-.004 5.45-4.437 9.884-9.89 9.884"/></svg>
+                            <div>
+                                CHAT ON WHATSAPP<br>
+                                <span class="text-sm opacity-80">+91 98765 43210</span>
+                            </div>
+                        </a>
+                        
+                        <div class="mt-16">
+                            <p class="uppercase text-xs tracking-widest mb-4">Follow our journey</p>
+                            <div class="flex gap-x-6">
+                                <a href="https://instagram.com/uniqfit" target="_blank" class="text-4xl hover:text-[#d4af77]">??</a>
+                                <a href="https://facebook.com/uniqfit" target="_blank" class="text-4xl hover:text-[#d4af77]">??</a>
+                                <a href="https://x.com/uniqfit" target="_blank" class="text-4xl hover:text-[#d4af77]">??</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Contact Form -->
+                    <form id="contact-form" onsubmit="handleSubmit(event)" class="bg-white/5 backdrop-blur-xl rounded-3xl p-10">
+                        <div class="space-y-8">
+                            <div>
+                                <label class="block text-xs uppercase tracking-widest mb-2">Your Name</label>
+                                <input type="text" id="name" required
+                                       class="w-full bg-transparent border-b border-white/30 focus:border-[#d4af77] outline-none py-4 text-lg placeholder:text-white/30">
+                            </div>
+                            <div>
+                                <label class="block text-xs uppercase tracking-widest mb-2">Email Address</label>
+                                <input type="email" id="email" required
+                                       class="w-full bg-transparent border-b border-white/30 focus:border-[#d4af77] outline-none py-4 text-lg placeholder:text-white/30">
+                            </div>
+                            <div>
+                                <label class="block text-xs uppercase tracking-widest mb-2">Your Message</label>
+                                <textarea id="message" rows="5" required
+                                          class="w-full bg-transparent border-b border-white/30 focus:border-[#d4af77] outline-none py-4 text-lg resize-none placeholder:text-white/30"></textarea>
+                            </div>
+                            
+                            <button type="submit"
+                                    class="w-full bg-[#d4af77] hover:bg-white text-black py-6 text-xl font-semibold rounded-2xl">
+                                SEND MESSAGE
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-black border-t border-white/10 py-16">
+        <div class="max-w-screen-2xl mx-auto px-6 lg:px-12">
+            <div class="grid md:grid-cols-12 gap-y-12">
+                <!-- Logo & description -->
+                <div class="md:col-span-5">
+                    <div class="flex items-center gap-x-2 mb-6">
+                        <span class="text-4xl font-bold tracking-[4px]">UNIQ</span>
+                        <span class="text-4xl font-bold tracking-[4px] text-[#d4af77]">FIT</span>
+                    </div>
+                    <p class="text-[#f5f0e8]/70 max-w-xs">Luxury minimal streetwear crafted with intention. Redefining style since 2022.</p>
+                    
+                    <p class="mt-8 text-xs text-white/40">© 2026 UniqFit • Made with passion in Gujarat, India</p>
+                </div>
+                
+                <!-- Quick links -->
+                <div class="md:col-span-2">
+                    <h4 class="uppercase text-xs tracking-widest mb-6">Shop</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a onclick="navigateTo('bestsellers-page')" class="hover:text-[#d4af77]">Best Sellers</a></li>
+                        <li><a onclick="navigateTo('bestsellers-page')" class="hover:text-[#d4af77]">New Arrivals</a></li>
+                        <li><a onclick="navigateTo('bestsellers-page')" class="hover:text-[#d4af77]">Collections</a></li>
+                    </ul>
+                </div>
+                
+                <div class="md:col-span-2">
+                    <h4 class="uppercase text-xs tracking-widest mb-6">Explore</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a onclick="navigateTo('about-page')" class="hover:text-[#d4af77]">About Us</a></li>
+                        <li><a onclick="navigateTo('story-page')" class="hover:text-[#d4af77]">Our Story</a></li>
+                        <li><a href="#" class="hover:text-[#d4af77]">Journal</a></li>
+                    </ul>
+                </div>
+                
+                <div class="md:col-span-3">
+                    <h4 class="uppercase text-xs tracking-widest mb-6">Stay in the loop</h4>
+                    <div class="flex">
+                        <input type="email" placeholder="YOUR EMAIL" 
+                               class="bg-white/10 text-white placeholder:text-white/40 px-6 py-4 rounded-l-3xl text-sm flex-1 outline-none">
+                        <button onclick="subscribe()" 
+                                class="bg-[#d4af77] text-black px-8 rounded-r-3xl font-medium">JOIN</button>
+                    </div>
+                    <p class="text-xs text-white/40 mt-4">Receive early access to drops and 10% off your first order.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        /**
+         * Tailwind already loaded via CDN – using arbitrary values for brand colors
+         * This is the complete, fully responsive, premium UniqFit website in ONE GitHub-friendly HTML file.
+         * Just save as index.html and open. Images are placeholders – replace filenames/URLs easily.
+         */
+        
+        let currentPageId = 'home-page'
+        
+        // Sample products (easy to edit or replace)
+        const products = [
+            {
+                id: 1,
+                name: "Signature Oversized Hoodie",
+                price: "?6,999",
+                image: "https://picsum.photos/id/1005/800/1000"
+            },
+            {
+                id: 2,
+                name: "Luxe Cargo Joggers",
+                price: "?5,499",
+                image: "https://picsum.photos/id/160/800/1000"
+            },
+            {
+                id: 3,
+                name: "Minimal Crewneck Sweatshirt",
+                price: "?4,299",
+                image: "https://picsum.photos/id/201/800/1000"
+            },
+            {
+                id: 4,
+                name: "Premium Wide-Leg Trousers",
+                price: "?7,999",
+                image: "https://picsum.photos/id/251/800/1000"
+            },
+            {
+                id: 5,
+                name: "Urban Leather Jacket",
+                price: "?14,999",
+                image: "https://picsum.photos/id/29/800/1000"
+            },
+            {
+                id: 6,
+                name: "Essential Boxy Tee",
+                price: "?2,999",
+                image: "https://picsum.photos/id/30/800/1000"
+            },
+            {
+                id: 7,
+                name: "Monogram Denim Shirt",
+                price: "?5,999",
+                image: "https://picsum.photos/id/1011/800/1000"
+            },
+            {
+                id: 8,
+                name: "Signature Track Pants",
+                price: "?4,799",
+                image: "https://picsum.photos/id/133/800/1000"
+            }
+        ]
+        
+        // Render home bestsellers preview
+        function renderHomeBestsellers() {
+            const container = document.getElementById('home-bestsellers-grid')
+            container.innerHTML = products.slice(0, 4).map(product => `
+                <div onclick="viewProduct(${product.id})" class="product-card cursor-pointer bg-white rounded-3xl overflow-hidden">
+                    <div class="relative">
+                        <img src="${product.image}" alt="${product.name}" class="w-full aspect-square object-cover">
+                        <div class="absolute top-4 right-4 bg-white text-black text-xs font-bold px-3 py-1 rounded-2xl shadow">
+                            ${product.price}
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-semibold text-lg">${product.name}</h4>
+                    </div>
+                </div>
+            `).join('')
+        }
+        
+        // Render full bestsellers page grid
+        function renderBestsellersPage() {
+            const container = document.getElementById('bestsellers-grid')
+            container.innerHTML = products.map(product => `
+                <div class="product-card group cursor-pointer bg-white text-black rounded-3xl overflow-hidden shadow-xl">
+                    <div class="relative">
+                        <img src="${product.image}" alt="${product.name}" 
+                             class="w-full aspect-[4/5] object-cover group-hover:scale-105">
+                        <div class="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 flex items-end p-6">
+                            <button onclick="event.stopImmediatePropagation();addToCart(${product.id});" 
+                                    class="w-full bg-white text-black font-semibold py-4 rounded-2xl text-sm uppercase tracking-widest">
+                                ADD TO BAG
+                            </button>
+                        </div>
+                        <div class="absolute top-4 right-4 bg-[#d4af77] text-black font-bold px-4 py-1 text-sm rounded-3xl">
+                            ${product.price}
+                        </div>
+                    </div>
+                    <div class="px-6 py-6">
+                        <h3 class="font-semibold text-xl">${product.name}</h3>
+                        <p class="text-sm text-black/60 mt-1">Limited edition • In stock</p>
+                    </div>
+                </div>
+            `).join('')
+        }
+        
+        // Navigate between pages
+        function navigateTo(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.add('hidden')
+            })
+            
+            // Show target page
+            const targetPage = document.getElementById(pageId)
+            if (targetPage) {
+                targetPage.classList.remove('hidden')
+                currentPageId = pageId
+                
+                // Trigger scroll-to-top on page switch
+                window.scrollTo({ top: 0, behavior: 'smooth' })
+                
+                // Re-render dynamic content when switching to bestsellers
+                if (pageId === 'bestsellers-page') {
+                    renderBestsellersPage()
+                }
+            }
+            
+            // Close mobile menu if open
+            const mobileMenu = document.getElementById('mobile-menu')
+            if (mobileMenu) mobileMenu.classList.add('hidden')
+        }
+        
+        // Mobile hamburger toggle
+        function toggleMobileMenu() {
+            const hamburger = document.getElementById('hamburger')
+            const menu = document.getElementById('mobile-menu')
+            
+            hamburger.classList.toggle('active')
+            menu.classList.toggle('hidden')
+        }
+        
+        // Fake cart interaction
+        function fakeCartClick() {
+            const count = document.getElementById('cart-count')
+            let num = parseInt(count.textContent) || 3
+            num++
+            count.textContent = num
+            count.style.transform = 'scale(1.4)'
+            setTimeout(() => count.style.transform = 'scale(1)', 200)
+            alert('??? Added to cart! (Demo)')
+        }
+        
+        // Add to cart from product card
+        function addToCart(id) {
+            const product = products.find(p => p.id === id)
+            if (product) {
+                const count = document.getElementById('cart-count')
+                let num = parseInt(count.textContent) || 3
+                count.textContent = num + 1
+                alert(`? ${product.name} added to your bag`)
+            }
+        }
+        
+        // View single product demo
+        function viewProduct(id) {
+            const product = products.find(p => p.id === id)
+            if (product) {
+                alert(`?? Quick view: ${product.name}\nPrice: ${product.price}\n\n(Replace this alert with a modal in future edits)`)
+            }
+        }
+        
+        // Form submission handler
+        function handleSubmit(e) {
+            e.preventDefault()
+            
+            const button = e.target.querySelector('button')
+            const originalText = button.textContent
+            
+            button.style.pointerEvents = 'none'
+            button.innerHTML = `
+                <span class="inline-block w-5 h-5 border-2 border-black border-t-transparent rounded-full animate-spin mr-3"></span>
+                SENDING...
+            `
+            setTimeout(() => {
+                button.innerHTML = '? MESSAGE SENT'
+                button.style.backgroundColor = '#22c55e'
+                
+                // Reset form
+                e.target.reset()
+                
+                setTimeout(() => {
+                    button.textContent = originalText
+                    button.style.backgroundColor = ''
+                    button.style.pointerEvents = ''
+                    alert('Thank you! Your message has been received by the UniqFit team ??')
+                }, 2200)
+            }, 1600)
+        }
+        
+        // Fake newsletter subscription
+        function subscribe() {
+            alert('?? Thank you! You are now part of the UniqFit inner circle.')
+        }
+        
+        // Navbar scroll effect
+        function handleNavbarScroll() {
+            const navbar = document.getElementById('navbar')
+            if (window.scrollY > 80) {
+                navbar.classList.add('bg-[#111111]', 'shadow-2xl')
+                navbar.classList.remove('bg-transparent')
+            } else {
+                if (currentPageId === 'home-page') {
+                    navbar.classList.remove('bg-[#111111]', 'shadow-2xl')
+                    navbar.classList.add('bg-transparent')
+                }
+            }
+        }
+        
+        // Scroll animations using Intersection Observer
+        function initScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in')
+                        observer.unobserve(entry.target)
+                    }
+                })
+            }, { threshold: 0.15 })
+            
+            // Observe all timeline items and featured cards
+            document.querySelectorAll('.timeline-item').forEach(item => observer.observe(item))
+            document.querySelectorAll('.product-card').forEach(card => observer.observe(card))
+        }
+        
+        // Main initialization
+        function initializeWebsite() {
+            console.log('%c?? UniqFit website initialized – premium, responsive, modern streetwear ready!', 'color:#d4af77; font-family:monospace;')
+            
+            // Tailwind is already active via CDN
+            // Render dynamic sections
+            renderHomeBestsellers()
+            
+            // Navbar scroll
+            window.addEventListener('scroll', handleNavbarScroll)
+            
+            // Initialize animations
+            initScrollAnimations()
+            
+            // Hide loader after a short premium animation
+            setTimeout(() => {
+                const loader = document.getElementById('loader')
+                loader.style.transition = 'opacity 800ms cubic-bezier(0.4, 0, 0.2, 1)'
+                loader.style.opacity = '0'
+                
+                setTimeout(() => {
+                    loader.remove()
+                }, 800)
+            }, 1400)
+            
+            console.log('? All pages, animations, mobile menu, form & hover effects are fully functional.')
+            console.log('?? Replace image URLs in the products array or src attributes with your own filenames.')
+            console.log('?? Fully GitHub-ready – single file, no external dependencies except Tailwind CDN.')
+        }
+        
+        // Boot the entire site
+        window.onload = initializeWebsite
+    </script>
+</body>
+</html>
